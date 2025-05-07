@@ -25,6 +25,12 @@ export class Level1 extends Scene {
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
     this.player.body.setGravityY(400);
+
+    this.anims.create({ key: 'left', frames: this.anims.generateFrameNumbers('run'), frameRate: 10, repeat: -1 });
+    this.anims.create({ key: 'jump', frames: this.anims.generateFrameNumbers('jump'), frameRate: 10 });
+    this.anims.create({ key: 'attack1', frames: this.anims.generateFrameNumbers('attack1'), frameRate: 10 });
+    this.anims.create({ key: 'attack2', frames: this.anims.generateFrameNumbers('attack2'), frameRate: 10 });
+    this.anims.create({ key: 'attack3', frames: this.anims.generateFrameNumbers('attack3'), frameRate: 10 });
   }
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
