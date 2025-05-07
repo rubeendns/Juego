@@ -18,9 +18,9 @@ export class Level1 extends Scene {
     this.load.spritesheet('enemy', 'Enemigomapa1.png', { frameWidth: 64, frameHeight: 64 });
   }
   create() {
-
+    this.add.image(400, 300, 'background').setScrollFactor(0);
   }
   update(){
-    
+
   }
 }
