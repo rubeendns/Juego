@@ -17,4 +17,10 @@ export class Level1 extends Scene {
     this.load.spritesheet('attack3', 'ATTACK 3.png', { frameWidth: 64, frameHeight: 64 });
     this.load.spritesheet('enemy', 'Enemigomapa1.png', { frameWidth: 64, frameHeight: 64 });
   }
+  create() {
+
+  }
+  update(){
+    
+  }
 }
