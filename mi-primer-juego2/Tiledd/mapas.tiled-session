@@ -7,17 +7,41 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "Mapita1.tmx": {
+            "scale": 0.4965234375,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 630.3831327196916,
+                "y": 739.1393281409803
+            }
+        },
+        "Mapita1.tmx#TILED1": {
+            "scaleInDock": 1
+        },
+        "Mapita2.tmx": {
+            "scale": 0.497265625,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 639.4972505891594,
+                "y": 400.1885310290652
+            }
+        },
+        "Mapita2.tmx#tileset2": {
+            "scaleInDock": 1
+        }
     },
     "last.exportedFilePath": "C:/Users/Lenovo_2019/Desktop/DAW/Lenguajes/actividad-6-rubeendns/mi-primer-juego2/public/assets/tilemaps",
     "last.imagePath": "C:/Users/Lenovo_2019/Desktop/DAW/Lenguajes/actividad-6-rubeendns/mi-primer-juego2/public/assets/tilesets",
-    "map.height": 25,
+    "map.height": 30,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
-    "map.width": 40,
+    "map.width": 50,
     "openFiles": [
     ],
     "project": "mapas.tiled-project",
     "recentFiles": [
+        "Mapita2.tmx",
+        "Mapita1.tmx"
     ],
     "tileset.embedInMap": true
 }
