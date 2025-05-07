@@ -19,6 +19,13 @@ export class Level1 extends Scene {
   }
   create() {
     this.add.image(400, 300, 'background').setScrollFactor(0);
+    this.inicializarMapa();
+  }
+  inicializarMapa() {
+    this.map = this.make.tilemap({ key: 'map' });
+    const tileset = this.map.addTilesetImage('tileset', 'tiles');
+    this.suelo = this.map.createLayer('Capa de patrones 1', tileset, 0, 0);
+    this.suelo.setCollisionByProperty({ colision: true });
   }
   update(){
 
