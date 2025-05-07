@@ -20,6 +20,11 @@ export class Level1 extends Scene {
   create() {
     this.add.image(400, 300, 'background').setScrollFactor(0);
     this.inicializarMapa();
+
+    this.player = this.physics.add.sprite(100, 300, 'run');
+    this.player.setBounce(0.1);
+    this.player.setCollideWorldBounds(true);
+    this.player.body.setGravityY(400);
   }
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
