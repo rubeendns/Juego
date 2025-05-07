@@ -35,7 +35,7 @@
             12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
          "height":30,
          "id":1,
-         "name":"Capa de patrones 1",
+         "name":"Capa de patrones3",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -46,7 +46,7 @@
         {
          "draworder":"topdown",
          "id":2,
-         "name":"Capa de Objetos 1",
+         "name":"Capa de objetos3",
          "objects":[
                 {
                  "height":158.366064414768,

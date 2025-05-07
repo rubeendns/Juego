@@ -6,6 +6,7 @@
     "activeFile": "",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Todos los archivos (*)",
     "fileStates": {
         "Mapita1.tmx": {
             "scale": 0.4965234375,
@@ -27,6 +28,17 @@
             }
         },
         "Mapita2.tmx#tileset2": {
+            "scaleInDock": 1
+        },
+        "Mapita3.tmx": {
+            "scale": 0.3978125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 799.3715632364493,
+                "y": 480.12568735271003
+            }
+        },
+        "Mapita3.tmx#tileset3": {
             "scaleInDock": 1
         }
     },
