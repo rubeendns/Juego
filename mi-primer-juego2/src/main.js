@@ -1,21 +1,19 @@
-import { Game as MainGame } from './scenes/Game';
-import { AUTO, Scale,Game } from 'phaser';
+import { Level1 } from './scenes/Level1.js';
+import Phaser from 'phaser';
 
-//  Find out more information about the Game Config at:
-//  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config = {
-    type: AUTO,
-    width: 1024,
-    height: 768,
-    parent: 'game-container',
-    backgroundColor: '#028af8',
-    scale: {
-        mode: Scale.FIT,
-        autoCenter: Scale.CENTER_BOTH
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
     },
-    scene: [
-        MainGame
-    ]
+    scene: [Level1]
 };
 
-export default new Game(config);
+const game = new Phaser.Game(config);
+
