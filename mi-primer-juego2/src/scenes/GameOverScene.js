@@ -5,4 +5,21 @@ export class GameOverScene extends Phaser.Scene {
     preload() {
         this.load.image('gameover', 'assets/GameOver.png'); // Asegúrate de tener esta imagen
       }
+    
+    create() {
+        this.add.image(400, 300, 'gameover').setDisplaySize(800, 600);
+    
+        const retryButton = this.add.text(250, 500, 'Reintentar', {
+          fontSize: 28,
+          fontFamily: 'Arial',
+          backgroundColor: '#222222',
+          color: '#ffffff',
+          padding: { x: 20, y: 10 }
+        })
+        .setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => {
+          this.scene.start(this.registry.get('lastLevel') || 'Level1'); // Último nivel jugado o Level1
+        });
+    }
+    
 }
