@@ -151,6 +151,7 @@ export class Level1 extends Scene {
 
   update() {
     this.enemigos.children.iterate((enemigo) => {
+      if (!enemigo.vidas) enemigo.vidas = 2; // Asegura que todos tengan vidas por si acaso
       if (enemigo.body.blocked.left || enemigo.body.blocked.right) {
         enemigo.direccion *= -1;
         enemigo.setVelocityX(100 * enemigo.direccion);
@@ -169,6 +170,7 @@ export class Level1 extends Scene {
         hitbox.body.allowGravity = false;
         hitbox.setVisible(false);
         this.physics.add.overlap(hitbox, this.enemigos, (hitbox, enemigo) => {
+          if (!enemigo.vidas) enemigo.vidas = 1;
           enemigo.vidas -= 1;
           if (enemigo.vidas <= 0) {
             enemigo.destroy();
