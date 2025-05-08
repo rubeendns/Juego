@@ -35,7 +35,7 @@ export class Level2 extends Scene {
     this.inicializarMapa();
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-    this.player = this.crearJugador(100, 670);
+    this.player = this.crearJugador(100, 470);
     this.physics.add.collider(this.player, this.suelo);
 
     if (globals.jugadores === 2) {
