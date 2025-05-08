@@ -27,8 +27,7 @@ export class Level1 extends Scene {
     this.load.spritesheet('dude', 'dude.png', { frameWidth: 32, frameHeight: 48 });
     for (let i = 0; i <= 5; i++) {
         this.load.image(`${i}vidas`, `${i}.png`);
-      }
-      
+    }
   }
 
   create() {
@@ -125,6 +124,11 @@ export class Level1 extends Scene {
       this.quitarVida(1);
       jugador.invulnerable = true;
       this.time.delayedCall(1000, () => jugador.invulnerable = false);
+
+      enemigo.direccion *= -1;
+      enemigo.setVelocityX(100 * enemigo.direccion);
+      if (enemigo.direccion < 0) enemigo.anims.play('enemigo_izquierda', true);
+      else enemigo.anims.play('enemigo_derecha', true);
     }
   }
 
