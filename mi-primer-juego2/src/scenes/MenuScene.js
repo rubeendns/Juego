@@ -11,7 +11,7 @@ export class MenuScene extends Phaser.Scene {
   }
 
   create() {
-    
+
     this.niveles = [
       { nombre: 'Level1', desbloqueado: true },
       { nombre: 'Level2', desbloqueado: nivelDesbloqueado >= 2 },
@@ -43,6 +43,17 @@ export class MenuScene extends Phaser.Scene {
         });
       }
     });
+    const salir = this.add.text(400, 480, 'Salir', {
+        fontSize: 24,
+        color: '#ffffff',
+        backgroundColor: '#880000',
+        padding: { x: 15, y: 8 }
+      })
+        .setOrigin(0.5)
+        .setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => {
+          this.scene.start('BootScene');
+        });
   }
 }
 
