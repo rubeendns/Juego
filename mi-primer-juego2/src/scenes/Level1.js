@@ -56,5 +56,16 @@ export class Level1 extends Scene {
   }
   update(){
 
+    if (this.cursors.left.isDown) {
+        this.player.setVelocityX(-160);
+        this.player.flipX = true;
+        this.player.anims.play('left', true);
+      } else if (this.cursors.right.isDown) {
+        this.player.setVelocityX(160);
+        this.player.flipX = false;
+        this.player.anims.play('left', true);
+      } else {
+        this.player.setVelocityX(0);
+      }
   }
 }
