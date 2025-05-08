@@ -44,6 +44,9 @@ export class Level1 extends Scene {
 
     this.physics.add.collider(this.enemigos, this.suelo);
     this.physics.add.collider(this.player, this.enemigos);
+
+    this.cameras.main.startFollow(this.player);
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
   }
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
