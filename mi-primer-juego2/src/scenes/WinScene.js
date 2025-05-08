@@ -21,5 +21,22 @@ export class WinScene extends Phaser.Scene {
     .on('pointerdown', () => {
       this.scene.start('MenuScene');
     });
+    if (globals.nivelDesbloqueado < 3) {
+        const siguienteNivel = globals.nivelDesbloqueado + 1;
+        const siguienteScene = 'Level' + siguienteNivel;
+    
+        const nextButton = this.add.text(450, 500, 'Siguiente Nivel', {
+          fontSize: 32,
+          fontFamily: 'Arial',
+          backgroundColor: '#008800',
+          color: '#ffffff',
+          padding: { x: 20, y: 10 }
+        })
+        .setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => {
+          this.scene.start(siguienteScene);
+        });
   }
+    }
 }
+
