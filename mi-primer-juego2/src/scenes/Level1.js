@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { globals } from '../utils/global.js';
 
 export class Level1 extends Scene {
   constructor() {
