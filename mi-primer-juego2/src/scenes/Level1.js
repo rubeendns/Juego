@@ -34,7 +34,7 @@ export class Level1 extends Scene {
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
     this.player.body.setGravityY(400);
-    this.player.setSize(40, 70).setOffset(28, 10);
+    this.player.setSize(35, 40).setOffset(30, 24);
 
     this.estaAtacando = false;
 
@@ -73,6 +73,13 @@ export class Level1 extends Scene {
     const tileset = this.map.addTilesetImage('TILED1', 'tiles');
     this.suelo = this.map.createLayer('tierra1', tileset, 0, 0);
     this.suelo.setCollisionBetween(1, 100);
+
+    const debugGraphics = this.add.graphics().setAlpha(0.7);
+    this.suelo.renderDebug(debugGraphics, {
+    tileColor: null,         // sin color para tiles sin colisión
+    collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), // rojo para colisionables
+    faceColor: new Phaser.Display.Color(0, 255, 0, 255)           // verde para bordes
+    });
   }
 
   update() {
