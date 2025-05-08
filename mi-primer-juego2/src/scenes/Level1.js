@@ -35,6 +35,8 @@ export class Level1 extends Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keyP = this.input.keyboard.addKey('P');
     this.keyO = this.input.keyboard.addKey('O');
+
+    this.physics.add.collider(this.player, this.suelo);
   }
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
