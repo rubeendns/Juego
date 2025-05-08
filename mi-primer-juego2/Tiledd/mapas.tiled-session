@@ -31,6 +31,9 @@
             "scaleInDock": 1
         },
         "Mapita3.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 0.3978125,
             "selectedLayer": 1,
             "viewCenter": {

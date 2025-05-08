@@ -6,7 +6,7 @@
  <tileset firstgid="1" name="tileset2" tilewidth="32" tileheight="32" tilecount="135" columns="15">
   <image source="../public/assets/tilesets/tileset2.png" width="485" height="288"/>
  </tileset>
- <layer id="1" name="Capa de patrones2" width="40" height="25">
+ <layer id="1" name="tierra2" width="40" height="25">
   <data encoding="csv">
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
@@ -35,7 +35,7 @@
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17
 </data>
  </layer>
- <objectgroup id="2" name="Capa de objetos2">
+ <objectgroup id="2" name="objetos2">
   <object id="1" x="2.011" y="-2.011" width="828.531" height="160.88"/>
   <object id="2" x="830.542" y="-2.011" width="446.441" height="66.3629"/>
   <object id="3" x="830.542" y="60.3299" width="253.386" height="34.187"/>

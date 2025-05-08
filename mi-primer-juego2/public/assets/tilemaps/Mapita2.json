@@ -30,7 +30,7 @@
             17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17],
          "height":25,
          "id":1,
-         "name":"Capa de patrones2",
+         "name":"tierra2",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -41,7 +41,7 @@
         {
          "draworder":"topdown",
          "id":2,
-         "name":"Capa de objetos2",
+         "name":"objetos2",
          "objects":[
                 {
                  "height":160.88,
