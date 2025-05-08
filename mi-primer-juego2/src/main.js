@@ -5,9 +5,9 @@ import { PlayerSelectScene } from './scenes/PlayerSelectScene.js';
 import { InstructionScene } from './scenes/InstructionScene.js';
 import { Level1 } from './scenes/Level1.js';
 /*import { Level2 } from './scenes/Level2.js';
-import { Level3 } from './scenes/Level3.js';
+import { Level3 } from './scenes/Level3.js';*/
 import { WinScene } from './scenes/WinScene.js';
-import { GameOverScene } from './scenes/GameOverScene.js';*/
+/*import { GameOverScene } from './scenes/GameOverScene.js';*/
 
 const config = {
     type: Phaser.AUTO,
@@ -30,6 +30,7 @@ const config = {
         MenuScene,
         PlayerSelectScene,
         InstructionScene,
+        WinScene,
         Level1]
 };
 
