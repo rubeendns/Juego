@@ -37,6 +37,10 @@ export class Level1 extends Scene {
     this.keyO = this.input.keyboard.addKey('O');
 
     this.physics.add.collider(this.player, this.suelo);
+
+    this.enemigos = this.physics.add.group();
+    let enemigo1 = this.enemigos.create(600, 300, 'enemy');
+    let enemigo2 = this.enemigos.create(900, 300, 'enemy');
   }
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
