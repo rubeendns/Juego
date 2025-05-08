@@ -71,5 +71,14 @@ export class Level1 extends Scene {
         this.player.setVelocityY(-350);
         this.player.anims.play('jump', true);
       }
+      if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+        this.player.anims.play('attack1', true);
+      }
+      if (Phaser.Input.Keyboard.JustDown(this.keyP)) {
+        this.player.anims.play('attack2', true);
+      }
+      if (Phaser.Input.Keyboard.JustDown(this.keyO)) {
+        this.player.anims.play('attack3', true);
+      }
   }
 }
