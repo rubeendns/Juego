@@ -41,6 +41,9 @@ export class Level1 extends Scene {
     this.enemigos = this.physics.add.group();
     let enemigo1 = this.enemigos.create(600, 300, 'enemy');
     let enemigo2 = this.enemigos.create(900, 300, 'enemy');
+
+    this.physics.add.collider(this.enemigos, this.suelo);
+    this.physics.add.collider(this.player, this.enemigos);
   }
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
