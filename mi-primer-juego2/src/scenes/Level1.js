@@ -23,7 +23,8 @@ export class Level1 extends Scene {
     this.load.spritesheet('attack2', 'ATTACK 2.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack3', 'ATTACK 3.png', { frameWidth: 96, frameHeight: 84 });
 
-    this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.setPath('assets/Imagenes/Enemigos');
+    this.load.spritesheet('dude', 'dude.png', { frameWidth: 32, frameHeight: 48 });
     for (let i = 0; i <= 5; i++) this.load.image(`${i}vidas`, `assets/${i}.png`);
   }
 
@@ -62,12 +63,21 @@ export class Level1 extends Scene {
 
     
     this.enemigos = this.physics.add.group();
+    this.anims.create({
+        key: 'enemigo_walk',
+        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 7 }),
+        frameRate: 10,
+        repeat: -1
+      });
+      
     for (let i = 0; i < 3; i++) {
       const x = Phaser.Math.Between(100, this.map.widthInPixels - 100);
       const enemigo = this.enemigos.create(x, 0, 'dude');
       enemigo.setBounce(0).setCollideWorldBounds(true).setVelocityX(100);
       enemigo.direccion = 1;
       enemigo.vidas = 2;
+      enemigo.anims.play('enemigo_walk');
+
     }
     this.physics.add.collider(this.enemigos, this.suelo);
     this.physics.add.collider(this.enemigos, this.player, this.colisionConJugador, null, this);
