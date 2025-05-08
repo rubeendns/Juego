@@ -22,6 +22,9 @@ export class Level1 extends Scene {
     this.load.spritesheet('attack1', 'ATTACK 1.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack2', 'ATTACK 2.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack3', 'ATTACK 3.png', { frameWidth: 96, frameHeight: 84 });
+
+    this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    for (let i = 0; i <= 5; i++) this.load.image(`${i}vidas`, `assets/${i}.png`);
   }
 
   create() {
