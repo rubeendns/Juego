@@ -1,35 +1,37 @@
+// BootScene.js
 export class BootScene extends Phaser.Scene {
     constructor() {
       super('BootScene');
     }
   
     preload() {
-      this.load.image('fondo', 'assets/boot.png'); 
+      this.load.image('fondo', 'assets/Boot.png'); // Imagen portada con "Dodge Death"
     }
   
     create() {
+      // Mostrar fondo portada
       this.add.image(400, 300, 'fondo').setDisplaySize(800, 600);
   
-      // Botón interactivo "Empezar"
-      const empezarTexto = this.add.text(320, 500, 'EMPEZAR', {
+      // Botón interactivo "EMPEZAR"
+      const startText = this.add.text(300, 500, 'EMPEZAR', {
         fontFamily: 'Arial Black',
         fontSize: 40,
         color: '#ffffff',
         backgroundColor: '#000000',
-        padding: { x: 20, y: 10 },
+        padding: { x: 30, y: 15 },
         align: 'center'
       }).setInteractive();
   
-      empezarTexto.on('pointerdown', () => {
+      startText.on('pointerdown', () => {
         this.scene.start('MenuScene');
       });
   
-      empezarTexto.on('pointerover', () => {
-        empezarTexto.setStyle({ backgroundColor: '#444444' });
+      startText.on('pointerover', () => {
+        startText.setStyle({ backgroundColor: '#444444' });
       });
   
-      empezarTexto.on('pointerout', () => {
-        empezarTexto.setStyle({ backgroundColor: '#000000' });
+      startText.on('pointerout', () => {
+        startText.setStyle({ backgroundColor: '#000000' });
       });
     }
   }
