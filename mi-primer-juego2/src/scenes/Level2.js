@@ -71,7 +71,7 @@ export class Level2 extends Scene {
       const enemigo = this.enemigos.create(x, 0, 'dude');
       enemigo.setBounce(0).setCollideWorldBounds(true).setVelocityX(150);
       enemigo.direccion = 1;
-      enemigo.vidas = 2;
+      enemigo.setData('vidas', 2);
       enemigo.anims.play('enemigo_derecha');
     }
 
@@ -137,24 +137,24 @@ export class Level2 extends Scene {
     this.vida = Phaser.Math.Clamp(this.vida, 0, 5);
     this.barraVida.setTexture(`${this.vida}vidas`);
     if (this.vida <= 0) {
-      this.registry.set('lastLevel', 'Level1');
+      this.registry.set('lastLevel', 'Level2');
       this.scene.start('GameOverScene');
     }
   }
 
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map2' });
-    const tileset = this.map.addTilesetImage('tileset2', 'tiles');
+    const tileset = this.map.addTilesetImage('tileset2', 'tiles2');
     this.suelo = this.map.createLayer('tierra2', tileset, 0, 0);
     this.suelo.setCollisionByExclusion([-1]);
   }
 
   update() {
     this.enemigos.children.iterate((enemigo) => {
-      if (!enemigo.vidas) enemigo.vidas = 2; // Asegura que todos tengan vidas por si acaso
+      if (!enemigo.getData('vidas')) enemigo.setData('vidas', 2);
       if (enemigo.body.blocked.left || enemigo.body.blocked.right) {
         enemigo.direccion *= -1;
-        enemigo.setVelocityX(100 * enemigo.direccion);
+        enemigo.setVelocityX(150 * enemigo.direccion);
         if (enemigo.direccion < 0) enemigo.anims.play('enemigo_izquierda', true);
         else enemigo.anims.play('enemigo_derecha', true);
       }
@@ -170,14 +170,16 @@ export class Level2 extends Scene {
         hitbox.body.allowGravity = false;
         hitbox.setVisible(false);
         this.physics.add.overlap(hitbox, this.enemigos, (hitbox, enemigo) => {
-          if (!enemigo.vidas) enemigo.vidas = 1;
-          enemigo.vidas -= 1;
-          if (enemigo.vidas <= 0) {
+          let vidas = enemigo.getData('vidas') ?? 2;
+          vidas--;
+          if (vidas <= 0) {
             enemigo.destroy();
             if (this.enemigos.countActive(true) === 0) {
-              this.registry.set('nivelDesbloqueado', 2);
+              this.registry.set('nivelDesbloqueado', 3);
               this.scene.start('WinScene');
             }
+          } else {
+            enemigo.setData('vidas', vidas);
           }
         });
         this.time.delayedCall(200, () => hitbox.destroy());

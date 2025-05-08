@@ -25,16 +25,20 @@ export class WinScene extends Phaser.Scene {
         const siguienteNivel = globals.nivelDesbloqueado + 1;
         const siguienteScene = 'Level' + siguienteNivel;
     
-        const nextButton = this.add.text(450, 500, 'Siguiente Nivel', {
+        const nextButton = this.add.text(550, 527, 'Siguiente Nivel', {
           fontSize: 32,
           fontFamily: 'Arial',
           backgroundColor: '#008800',
           color: '#ffffff',
           padding: { x: 20, y: 10 }
         })
-        .setInteractive({ useHandCursor: true })
-        .on('pointerdown', () => {
-          this.scene.start(siguienteScene);
+        .setOrigin(0.5).setInteractive().on('pointerdown', () => {
+            const nivel = this.registry.get('nivelDesbloqueado');
+            if (nivel === 2) {
+              this.scene.start('Level2');
+            } else if (nivel === 3) {
+              this.scene.start('Level3');
+            }
         });
   }
     }
