@@ -32,7 +32,7 @@ export class Level1 extends Scene {
 
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-    this.player = this.physics.add.sprite(100, 300, 'run');
+    this.player = this.physics.add.sprite(100, 670, 'run');
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
     this.player.body.setGravityY(400);
@@ -60,13 +60,35 @@ export class Level1 extends Scene {
     this.keyO = this.input.keyboard.addKey('O');
 
     this.enemigos = this.physics.add.group();
-    let enemigo1 = this.enemigos.create(450, 140, 'enemy'); // enemigo de arriba movido a la izquierda
-    let enemigo2 = this.enemigos.create(900, 300, 'enemy'); // enemigo en plataforma derecha
-    let enemigo3 = this.enemigos.create(200, 460, 'enemy'); // nuevo enemigo abajo a la izquierda
+    this.enemigo1 = this.enemigos.create(550, 600, 'enemy'); // enemigo de arriba movido a la izquierda
+    this.enemigo2 = this.enemigos.create(900, 300, 'enemy'); // enemigo en plataforma derecha
+    this.enemigo3 = this.enemigos.create(750, 100, 'enemy'); // nuevo enemigo abajo a la izquierda
+
+    this.anims.create({ key: 'Enemigo', frames: this.anims.generateFrameNumbers('enemy', { start: 8, end: 16 }), frameRate: 10, repeat: -1 });
+    // Configurar patrullaje y animación para cada enemigo
+    this.enemigo1.direccion = 1;
+    this.enemigo1.rango = { min: 520, max: 600 };
+    this.enemigo1.setVelocityX(50);
+    this.enemigo1.anims.play('Enemigo', true);
+    this.enemigo1.setSize(50, 70).setOffset(30, 24);
+
+    this.enemigo2.direccion = 1;
+    this.enemigo2.rango = { min: 880, max: 950 };
+    this.enemigo2.setVelocityX(50);
+    this.enemigo2.anims.play('Enemigo', true);
+    this.enemigo2.setSize(50, 70).setOffset(30, 24);
+
+    this.enemigo3.direccion = 1;
+    this.enemigo3.rango = { min: 700, max: 800 };
+    this.enemigo3.setVelocityX(50);
+    this.enemigo3.anims.play('Enemigo', true);
+    this.enemigo3.setSize(50, 70).setOffset(30, 24);
 
     this.physics.add.collider(this.player, this.suelo);
     this.physics.add.collider(this.enemigos, this.suelo);
     this.physics.add.collider(this.player, this.enemigos);
+
+    
 
     
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -123,8 +145,22 @@ export class Level1 extends Scene {
     }
 
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-350);
+      this.player.setVelocityY(-450);
       this.player.anims.play('jump', true);
     }
+    // Patrullaje automático de los enemigos
+    [this.enemigo1, this.enemigo2, this.enemigo3].forEach((enemigo) => {
+    if (!enemigo || !enemigo.rango) return;
+  
+    if (enemigo.x <= enemigo.rango.min) {
+      enemigo.direccion = 1;
+    } else if (enemigo.x >= enemigo.rango.max) {
+      enemigo.direccion = -1;
+    }
+  
+    enemigo.setVelocityX(50 * enemigo.direccion);
+    enemigo.flipX = enemigo.direccion < 0;
+  });
+  
   }
 }
