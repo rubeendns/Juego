@@ -64,24 +64,24 @@ export class Level1 extends Scene {
     this.enemigo2 = this.enemigos.create(900, 300, 'enemy'); // enemigo en plataforma derecha
     this.enemigo3 = this.enemigos.create(750, 100, 'enemy'); // nuevo enemigo abajo a la izquierda
 
-    this.anims.create({ key: 'Enemigo', frames: this.anims.generateFrameNumbers('enemy', { start: 8, end: 16 }), frameRate: 10, repeat: -1 });
+    this.anims.create({ key: 'enemy_walk', frames: this.anims.generateFrameNumbers('enemy', { start: 8, end: 15 }), frameRate: 8, repeat: -1 });
     // Configurar patrullaje y animación para cada enemigo
     this.enemigo1.direccion = 1;
     this.enemigo1.rango = { min: 520, max: 600 };
-    this.enemigo1.setVelocityX(50);
-    this.enemigo1.anims.play('Enemigo', true);
-    this.enemigo1.setSize(50, 70).setOffset(30, 24);
+    this.enemigo1.setVelocityX(20);
+    this.enemigo1.anims.play('enemy_walk', true);
+    this.enemigo1.setSize(50, 60).setOffset(30, 24);
 
     this.enemigo2.direccion = 1;
     this.enemigo2.rango = { min: 880, max: 950 };
-    this.enemigo2.setVelocityX(50);
-    this.enemigo2.anims.play('Enemigo', true);
+    this.enemigo2.setVelocityX(20);
+    this.enemigo2.anims.play('enemy_walk', true);
     this.enemigo2.setSize(50, 70).setOffset(30, 24);
 
     this.enemigo3.direccion = 1;
     this.enemigo3.rango = { min: 700, max: 800 };
-    this.enemigo3.setVelocityX(50);
-    this.enemigo3.anims.play('Enemigo', true);
+    this.enemigo3.setVelocityX(20);
+    this.enemigo3.anims.play('enemy_walk', true);
     this.enemigo3.setSize(50, 70).setOffset(30, 24);
 
     this.physics.add.collider(this.player, this.suelo);
@@ -159,7 +159,8 @@ export class Level1 extends Scene {
     }
   
     enemigo.setVelocityX(50 * enemigo.direccion);
-    enemigo.flipX = enemigo.direccion < 0;
+    enemigo.flipX = enemigo.direccion > 0;
+    enemigo.anims.play('enemy_walk', true);
   });
   
   }
