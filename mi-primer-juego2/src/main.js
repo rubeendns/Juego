@@ -1,5 +1,14 @@
 import Phaser from 'phaser';
+import { BootScene } from './scenes/BootScene.js';
+import { MenuScene } from './scenes/MenuScene.js';
+import { PlayerSelectScene } from './scenes/PlayerSelectScene.js';
+import { InstructionScene } from './scenes/InstructionScene.js';
+import { LevelMenuScene } from './scenes/LevelMenuScene.js';
 import { Level1 } from './scenes/Level1.js';
+import { Level2 } from './scenes/Level2.js';
+import { Level3 } from './scenes/Level3.js';
+import { WinScene } from './scenes/WinScene.js';
+import { GameOverScene } from './scenes/GameOverScene.js';
 
 const config = {
     type: Phaser.AUTO,
@@ -18,7 +27,16 @@ const config = {
             debug: true
         }
     },
-    scene: [Level1]
+    scene: [BootScene,
+        MenuScene,
+        PlayerSelectScene,
+        InstructionScene,
+        LevelMenuScene,
+        Level1,
+        Level2,
+        Level3,
+        WinScene,
+        GameOverScene]
 };
 
 export default new Phaser.Game(config);
