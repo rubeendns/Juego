@@ -13,7 +13,7 @@ export class BootScene extends Phaser.Scene {
       this.add.image(400, 300, 'fondo').setDisplaySize(800, 600);
   
       // Botón interactivo "EMPEZAR"
-      const startText = this.add.text(300, 500, 'EMPEZAR', {
+      const startText = this.add.text(260, 500, 'EMPEZAR', {
         fontFamily: 'Arial Black',
         fontSize: 40,
         color: '#ffffff',
