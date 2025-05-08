@@ -23,9 +23,12 @@ export class Level1 extends Scene {
     this.load.spritesheet('attack2', 'ATTACK 2.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack3', 'ATTACK 3.png', { frameWidth: 96, frameHeight: 84 });
 
-    this.load.setPath('assets/Imagenes/Enemigos');
+    this.load.setPath('assets');
     this.load.spritesheet('dude', 'dude.png', { frameWidth: 32, frameHeight: 48 });
-    for (let i = 0; i <= 5; i++) this.load.image(`${i}vidas`, `assets/${i}.png`);
+    for (let i = 0; i <= 5; i++) {
+        this.load.image(`${i}vidas`, `${i}.png`);
+      }
+      
   }
 
   create() {
@@ -45,7 +48,7 @@ export class Level1 extends Scene {
     this.cameras.main.startFollow(this.player);
 
     this.vida = 5;
-    this.barraVida = this.add.image(60, 40, '5vidas').setScrollFactor(0);
+    this.barraVida = this.add.image(60, 40, '5vidas').setScale(0.05).setScrollFactor(0);
 
     this.pausaActiva = false;
     const pausa = this.add.text(740, 20, '⏸', {
@@ -160,6 +163,7 @@ export class Level1 extends Scene {
         const hitbox = this.physics.add.sprite(this.player.x + (this.player.flipX ? -40 : 40), this.player.y, null);
         hitbox.body.setSize(30, 30);
         hitbox.body.allowGravity = false;
+        hitbox.setVisible(false);
         this.physics.add.overlap(hitbox, this.enemigos, (hitbox, enemigo) => {
           enemigo.vidas -= 1;
           if (enemigo.vidas <= 0) {
