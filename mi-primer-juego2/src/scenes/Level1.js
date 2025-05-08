@@ -58,8 +58,9 @@ export class Level1 extends Scene {
     this.keyO = this.input.keyboard.addKey('O');
 
     this.enemigos = this.physics.add.group();
-    let enemigo1 = this.enemigos.create(600, 300, 'enemy');
-    let enemigo2 = this.enemigos.create(900, 300, 'enemy');
+    let enemigo1 = this.enemigos.create(450, 140, 'enemy'); // enemigo de arriba movido a la izquierda
+    let enemigo2 = this.enemigos.create(900, 300, 'enemy'); // enemigo en plataforma derecha
+    let enemigo3 = this.enemigos.create(200, 460, 'enemy'); // nuevo enemigo abajo a la izquierda
     this.physics.add.collider(this.enemigos, this.suelo);
     this.physics.add.collider(this.player, this.enemigos);
 
@@ -77,7 +78,7 @@ export class Level1 extends Scene {
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       this.estaAtacando = true;
-      this.player.setVelocityX(0); // detener movimiento
+      this.player.setVelocityX(0);
       this.player.anims.play('attack1', true);
     }
     if (Phaser.Input.Keyboard.JustDown(this.keyP)) {
