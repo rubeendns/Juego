@@ -1,4 +1,3 @@
-
 import { globals } from '../utils/global.js';
 
 export class MenuScene extends Phaser.Scene {
@@ -7,10 +6,11 @@ export class MenuScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('menu', 'assets/menu.png'); // Imagen de fondo opcional
+    
   }
 
   create() {
+    this.cameras.main.setBackgroundColor('#2c1b0e'); // Color marrón oscuro
 
     this.niveles = [
       { nombre: 'Level1', desbloqueado: true },
@@ -43,17 +43,17 @@ export class MenuScene extends Phaser.Scene {
         });
       }
     });
+
     const salir = this.add.text(400, 480, 'Salir', {
-        fontSize: 24,
-        color: '#ffffff',
-        backgroundColor: '#880000',
-        padding: { x: 15, y: 8 }
-      })
-        .setOrigin(0.5)
-        .setInteractive({ useHandCursor: true })
-        .on('pointerdown', () => {
-          this.scene.start('BootScene');
-        });
+      fontSize: 24,
+      color: '#ffffff',
+      backgroundColor: '#880000',
+      padding: { x: 15, y: 8 }
+    })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true })
+      .on('pointerdown', () => {
+        this.scene.start('BootScene');
+      });
   }
 }
-
