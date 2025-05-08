@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { BootScene } from './scenes/BootScene.js';
 import { MenuScene } from './scenes/MenuScene.js';
 import { PlayerSelectScene } from './scenes/PlayerSelectScene.js';
-/*import { InstructionScene } from './scenes/InstructionScene.js';*/
+import { InstructionScene } from './scenes/InstructionScene.js';
 import { Level1 } from './scenes/Level1.js';
 /*import { Level2 } from './scenes/Level2.js';
 import { Level3 } from './scenes/Level3.js';
@@ -29,6 +29,7 @@ const config = {
     scene: [BootScene,
         MenuScene,
         PlayerSelectScene,
+        InstructionScene,
         Level1]
 };
 
