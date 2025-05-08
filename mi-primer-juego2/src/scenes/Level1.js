@@ -67,5 +67,9 @@ export class Level1 extends Scene {
       } else {
         this.player.setVelocityX(0);
       }
+      if (this.cursors.up.isDown && this.player.body.blocked.down) {
+        this.player.setVelocityY(-350);
+        this.player.anims.play('jump', true);
+      }
   }
 }
