@@ -64,11 +64,19 @@ export class Level1 extends Scene {
     
     this.enemigos = this.physics.add.group();
     this.anims.create({
-        key: 'enemigo_walk',
-        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 7 }),
+        key: 'enemigo_izquierda',
+        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
         frameRate: 10,
         repeat: -1
       });
+      
+      this.anims.create({
+        key: 'enemigo_derecha',
+        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        frameRate: 10,
+        repeat: -1
+      });
+      
       
     for (let i = 0; i < 3; i++) {
       const x = Phaser.Math.Between(100, this.map.widthInPixels - 100);
@@ -76,7 +84,8 @@ export class Level1 extends Scene {
       enemigo.setBounce(0).setCollideWorldBounds(true).setVelocityX(100);
       enemigo.direccion = 1;
       enemigo.vidas = 2;
-      enemigo.anims.play('enemigo_walk');
+      enemigo.anims.play('enemigo_derecha');
+
 
     }
     this.physics.add.collider(this.enemigos, this.suelo);
@@ -142,7 +151,7 @@ export class Level1 extends Scene {
   }
 
   inicializarMapa() {
-    // 🔹 ORIGINAL
+   
     this.map = this.make.tilemap({ key: 'map' });
     const tileset = this.map.addTilesetImage('TILED1', 'tiles');
     this.suelo = this.map.createLayer('tierra1', tileset, 0, 0);
@@ -152,14 +161,20 @@ export class Level1 extends Scene {
   update() {
     // 🔸 AÑADIDO: control enemigos
     this.enemigos.children.iterate((enemigo) => {
-      if (enemigo.body.blocked.left || enemigo.body.blocked.right) {
-        enemigo.direccion *= -1;
-        enemigo.setVelocityX(100 * enemigo.direccion);
-        enemigo.flipX = enemigo.direccion < 0;
-      }
+        if (enemigo.body.blocked.left || enemigo.body.blocked.right) {
+            enemigo.direccion *= -1;
+            enemigo.setVelocityX(100 * enemigo.direccion);
+          
+            if (enemigo.direccion < 0) {
+              enemigo.anims.play('enemigo_izquierda', true);
+            } else {
+              enemigo.anims.play('enemigo_derecha', true);
+            }
+          }
+          
     });
 
-    // 🔹 ORIGINAL + ATAQUES CON HITBOX
+   
     const atacar = (tecla, anim) => {
       if (Phaser.Input.Keyboard.JustDown(tecla)) {
         this.player.estaAtacando = true;
