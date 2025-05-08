@@ -20,6 +20,17 @@ export class GameOverScene extends Phaser.Scene {
         .on('pointerdown', () => {
           this.scene.start(this.registry.get('lastLevel') || 'Level1'); // Último nivel jugado o Level1
         });
+        const menuButton = this.add.text(450, 500, 'Menú', {
+            fontSize: 28,
+            fontFamily: 'Arial',
+            backgroundColor: '#880000',
+            color: '#ffffff',
+            padding: { x: 20, y: 10 }
+          })
+          .setInteractive({ useHandCursor: true })
+          .on('pointerdown', () => {
+            this.scene.start('MenuScene');
+          });
     }
+ }
     
-}
