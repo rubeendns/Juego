@@ -21,9 +21,6 @@ export class Level1 extends Scene {
     this.load.spritesheet('attack1', 'ATTACK 1.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack2', 'ATTACK 2.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack3', 'ATTACK 3.png', { frameWidth: 96, frameHeight: 84 });
-
-    this.load.setPath('assets/Imagenes/Enemigos');
-    this.load.spritesheet('enemy', 'Enemigomapa1.png', { frameWidth: 110, frameHeight: 90 });
   }
 
   create() {
@@ -53,57 +50,22 @@ export class Level1 extends Scene {
       }
     });
 
-    
-
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keyP = this.input.keyboard.addKey('P');
     this.keyO = this.input.keyboard.addKey('O');
 
-    this.enemigos = this.physics.add.group();
-    this.enemigo1 = this.enemigos.create(550, 600, 'enemy'); // enemigo de arriba movido a la izquierda
-    this.enemigo2 = this.enemigos.create(900, 300, 'enemy'); // enemigo en plataforma derecha
-    this.enemigo3 = this.enemigos.create(750, 100, 'enemy'); // nuevo enemigo abajo a la izquierda
-
-    this.anims.create({ key: 'enemy_walk', frames: this.anims.generateFrameNumbers('enemy', { start: 8, end: 15 }), frameRate: 8, repeat: -1 });
-    // Configurar patrullaje y animación para cada enemigo
-    this.enemigo1.direccion = 1;
-    this.enemigo1.rango = { min: 520, max: 600 };
-    this.enemigo1.setVelocityX(20);
-    this.enemigo1.anims.play('enemy_walk', true);
-    this.enemigo1.setSize(50, 60).setOffset(30, 24);
-
-    this.enemigo2.direccion = 1;
-    this.enemigo2.rango = { min: 880, max: 950 };
-    this.enemigo2.setVelocityX(20);
-    this.enemigo2.anims.play('enemy_walk', true);
-    this.enemigo2.setSize(50, 70).setOffset(30, 24);
-
-    this.enemigo3.direccion = 1;
-    this.enemigo3.rango = { min: 700, max: 800 };
-    this.enemigo3.setVelocityX(20);
-    this.enemigo3.anims.play('enemy_walk', true);
-    this.enemigo3.setSize(50, 70).setOffset(30, 24);
-
     this.physics.add.collider(this.player, this.suelo);
-    this.physics.add.collider(this.enemigos, this.suelo);
-    this.physics.add.collider(this.player, this.enemigos);
 
-    
-
-    
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player);
   }
 
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
-    const tileset = this.map.addTilesetImage('TILED1', 'tiles'); // Nombre exacto como aparece en Tiled
+    const tileset = this.map.addTilesetImage('TILED1', 'tiles');
     this.suelo = this.map.createLayer('tierra1', tileset, 0, 0);
-  
-    // Esta línea activa las colisiones según lo que dibujaste en Tiled
     this.suelo.setCollisionByExclusion([-1]);
 
-  
     const debugGraphics = this.add.graphics().setAlpha(0.7);
     this.suelo.renderDebug(debugGraphics, {
       tileColor: null,
@@ -111,7 +73,7 @@ export class Level1 extends Scene {
       faceColor: new Phaser.Display.Color(0, 255, 0, 255)
     });
   }
-  
+
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       this.estaAtacando = true;
@@ -148,20 +110,5 @@ export class Level1 extends Scene {
       this.player.setVelocityY(-450);
       this.player.anims.play('jump', true);
     }
-    // Patrullaje automático de los enemigos
-    [this.enemigo1, this.enemigo2, this.enemigo3].forEach((enemigo) => {
-    if (!enemigo || !enemigo.rango) return;
-  
-    if (enemigo.x <= enemigo.rango.min) {
-      enemigo.direccion = 1;
-    } else if (enemigo.x >= enemigo.rango.max) {
-      enemigo.direccion = -1;
-    }
-  
-    enemigo.setVelocityX(50 * enemigo.direccion);
-    enemigo.flipX = enemigo.direccion > 0;
-    enemigo.anims.play('enemy_walk', true);
-  });
-  
   }
-}
+} 
