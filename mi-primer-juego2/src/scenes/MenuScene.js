@@ -1,5 +1,5 @@
 // MenuScene.js
-import { nivelDesbloqueado } from '../utils/globals.js';
+import { nivelDesbloqueado } from '../utils/global.js';
 
 export class MenuScene extends Phaser.Scene {
   constructor() {
