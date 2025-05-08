@@ -12,7 +12,7 @@ export class WinScene extends Phaser.Scene {
   create() {
     this.add.image(400, 300, 'winImage').setDisplaySize(800, 600);
 
-    const menuButton = this.add.text(250, 500, 'Menú', {
+    const menuButton = this.add.text(200, 500, 'Menú', {
       fontSize: 32,
       fontFamily: 'Arial',
       backgroundColor: '#000000',
@@ -37,7 +37,7 @@ export class WinScene extends Phaser.Scene {
     const siguienteNivel = nivelActual === 'Level1' ? 'Level2' : nivelActual === 'Level2' ? 'Level3' : null;
 
     if (siguienteNivel) {
-      const nextButton = this.add.text(550, 500, 'Siguiente Nivel', {
+      const nextButton = this.add.text(400, 500, 'Siguiente Nivel', {
         fontSize: 32,
         fontFamily: 'Arial',
         backgroundColor: '#000000',
