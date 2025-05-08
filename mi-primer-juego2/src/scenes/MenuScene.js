@@ -5,17 +5,19 @@ export class MenuScene extends Phaser.Scene {
     super('MenuScene');
   }
 
-  preload() {
-    
-  }
-
   create() {
-    this.cameras.main.setBackgroundColor('#2c1b0e');
+
+    if (!localStorage.getItem('nivelDesbloqueado')) {
+        localStorage.setItem('nivelDesbloqueado', 1);
+      }
+      
+    
   
     // Recupera el progreso desde localStorage (o usa 1 por defecto)
     const desbloqueado = parseInt(localStorage.getItem('nivelDesbloqueado')) || 1;
+    console.log('Nivel desbloqueado:', localStorage.getItem('nivelDesbloqueado'));
   
-    
+    this.cameras.main.setBackgroundColor('#2c1b0e');
   
     this.niveles = [
       { nombre: 'Level1', desbloqueado: true },

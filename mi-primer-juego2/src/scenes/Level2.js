@@ -121,7 +121,7 @@ export class Level2 extends Scene {
 
   colisionConJugador(jugador, enemigo) {
     if (!jugador.invulnerable) {
-      this.quitarVida(1);
+      this.quitarVida(2); // Cambiado a quitar 2 vidas
       jugador.invulnerable = true;
       this.time.delayedCall(1000, () => jugador.invulnerable = false);
 
@@ -175,10 +175,10 @@ export class Level2 extends Scene {
           if (vidas <= 0) {
             enemigo.destroy();
             if (this.enemigos.countActive(true) === 0) {
-                this.registry.set('nivelDesbloqueado', 3);
-                localStorage.setItem('nivelDesbloqueado', 3);
-                this.scene.start('WinScene');
-                
+              this.registry.set('lastLevel', 'Level2');
+              this.registry.set('nivelDesbloqueado', Math.max(this.registry.get('nivelDesbloqueado') || 2, 2));
+              localStorage.setItem('nivelDesbloqueado', this.registry.get('nivelDesbloqueado'));
+              this.scene.start('WinScene');
             }
           } else {
             enemigo.setData('vidas', vidas);

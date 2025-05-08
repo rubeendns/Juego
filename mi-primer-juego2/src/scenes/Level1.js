@@ -175,8 +175,11 @@ export class Level1 extends Scene {
           if (enemigo.vidas <= 0) {
             enemigo.destroy();
             if (this.enemigos.countActive(true) === 0) {
-              this.registry.set('nivelDesbloqueado', 2);
-              this.scene.start('WinScene');
+                this.registry.set('nivelDesbloqueado', 2);
+                localStorage.setItem('nivelDesbloqueado', 2);
+                this.registry.set('lastLevel', 'Level1');
+                this.scene.start('WinScene');
+
             }
           }
         });
