@@ -31,6 +31,10 @@ export class Level1 extends Scene {
     this.anims.create({ key: 'attack1', frames: this.anims.generateFrameNumbers('attack1'), frameRate: 10 });
     this.anims.create({ key: 'attack2', frames: this.anims.generateFrameNumbers('attack2'), frameRate: 10 });
     this.anims.create({ key: 'attack3', frames: this.anims.generateFrameNumbers('attack3'), frameRate: 10 });
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.keyP = this.input.keyboard.addKey('P');
+    this.keyO = this.input.keyboard.addKey('O');
   }
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
