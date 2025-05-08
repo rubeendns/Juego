@@ -19,6 +19,8 @@ export class Level1 extends Scene {
     this.load.setPath('assets/Imagenes/Personaje');
     this.load.spritesheet('run', 'RUN.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('jump', 'JUMP.png', { frameWidth: 96, frameHeight: 84 });
+    this.load.spritesheet('hurt', 'HURT.png', { frameWidth: 96, frameHeight: 84 });
+    this.load.spritesheet('death', 'DEATH.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack1', 'ATTACK 1.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack2', 'ATTACK 2.png', { frameWidth: 96, frameHeight: 84 });
     this.load.spritesheet('attack3', 'ATTACK 3.png', { frameWidth: 96, frameHeight: 84 });
@@ -104,10 +106,14 @@ export class Level1 extends Scene {
     jugador.setSize(35, 40).setOffset(30, 24);
     jugador.estaAtacando = false;
     jugador.invulnerable = false;
+    jugador.estaMuerto = false;
+    jugador.recibiendoDanyo = false;
 
     this.anims.create({ key: 'left', frames: this.anims.generateFrameNumbers('run', { start: 0, end: 4 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'right', frames: this.anims.generateFrameNumbers('run', { start: 0, end: 4 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'jump', frames: this.anims.generateFrameNumbers('jump'), frameRate: 10 });
+    this.anims.create({ key: 'hurt', frames: this.anims.generateFrameNumbers('hurt', { start: 0, end: 3 }), frameRate: 10, repeat: 0 });
+    this.anims.create({ key: 'death', frames: this.anims.generateFrameNumbers('death', { start: 0, end: 9 }), frameRate: 10, repeat: 0 });
     this.anims.create({ key: 'attack1', frames: this.anims.generateFrameNumbers('attack1', { start: 0, end: 5 }), frameRate: 10, repeat: 0 });
     this.anims.create({ key: 'attack2', frames: this.anims.generateFrameNumbers('attack2', { start: 0, end: 4 }), frameRate: 10, repeat: 0 });
     this.anims.create({ key: 'attack3', frames: this.anims.generateFrameNumbers('attack3', { start: 0, end: 5 }), frameRate: 10, repeat: 0 });
@@ -120,10 +126,16 @@ export class Level1 extends Scene {
   }
 
   colisionConJugador(jugador, enemigo) {
-    if (!jugador.invulnerable) {
+    if (!jugador.invulnerable && !jugador.estaMuerto && !jugador.recibiendoDanyo) {
+      jugador.recibiendoDanyo = true;
+      jugador.anims.play('hurt', true);
       this.quitarVida(1);
       jugador.invulnerable = true;
-      this.time.delayedCall(1000, () => jugador.invulnerable = false);
+
+      this.time.delayedCall(1000, () => {
+        jugador.invulnerable = false;
+        jugador.recibiendoDanyo = false;
+      });
 
       enemigo.direccion *= -1;
       enemigo.setVelocityX(150 * enemigo.direccion);
@@ -133,12 +145,22 @@ export class Level1 extends Scene {
   }
 
   quitarVida(cantidad) {
-    this.vida -= cantidad;
-    this.vida = Phaser.Math.Clamp(this.vida, 0, 5);
-    this.barraVida.setTexture(`${this.vida}vidas`);
-    if (this.vida <= 0) {
-      this.registry.set('lastLevel', 'Level1');
-      this.scene.start('GameOverScene');
+    if (this.vida > 0 && !this.player.estaMuerto) {
+      this.vida -= cantidad;
+      if (this.vida < 0) this.vida = 0;
+      this.barraVida.setTexture(`${this.vida}vidas`);
+
+      if (this.vida === 0) {
+        this.player.estaMuerto = true;
+        this.player.anims.play('death', true);
+        this.player.setVelocity(0);
+        this.player.body.enable = false;
+
+        this.time.delayedCall(1000, () => {
+          this.registry.set('lastLevel', 'Level1');
+          this.scene.start('GameOverScene');
+        });
+      }
     }
   }
 
@@ -151,7 +173,7 @@ export class Level1 extends Scene {
 
   update() {
     this.enemigos.children.iterate((enemigo) => {
-      if (!enemigo.vidas) enemigo.vidas = 2; // Asegura que todos tengan vidas por si acaso
+      if (!enemigo.vidas) enemigo.vidas = 2;
       if (enemigo.body.blocked.left || enemigo.body.blocked.right) {
         enemigo.direccion *= -1;
         enemigo.setVelocityX(100 * enemigo.direccion);
@@ -175,11 +197,10 @@ export class Level1 extends Scene {
           if (enemigo.vidas <= 0) {
             enemigo.destroy();
             if (this.enemigos.countActive(true) === 0) {
-                this.registry.set('nivelDesbloqueado', 2);
-                localStorage.setItem('nivelDesbloqueado', 2);
-                this.registry.set('lastLevel', 'Level1');
-                this.scene.start('WinScene');
-
+              this.registry.set('nivelDesbloqueado', 2);
+              localStorage.setItem('nivelDesbloqueado', 2);
+              this.registry.set('lastLevel', 'Level1');
+              this.scene.start('WinScene');
             }
           }
         });
@@ -195,7 +216,7 @@ export class Level1 extends Scene {
     atacar(this.keyP, 'attack2');
     atacar(this.keyO, 'attack3');
 
-    if (this.player.estaAtacando) return;
+    if (this.player.estaAtacando || this.player.recibiendoDanyo || this.player.estaMuerto) return;
 
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);

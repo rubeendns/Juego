@@ -14,7 +14,7 @@ export class Level3 extends Scene {
     this.load.image('background3', 'FondoMapa3.png');
 
     this.load.setPath('assets/tilesets');
-    this.load.image('tiles3', 'tileset3.png');
+    this.load.image('tiles3', 'tileset.png');
 
     this.load.setPath('assets/Imagenes/Personaje');
     this.load.spritesheet('run', 'RUN.png', { frameWidth: 96, frameHeight: 84 });
