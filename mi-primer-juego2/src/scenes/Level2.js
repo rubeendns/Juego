@@ -8,13 +8,13 @@ export class Level2 extends Scene {
 
   preload() {
     this.load.setPath('assets/tilemaps');
-    this.load.tilemapTiledJSON('map', 'Mapita2.json');
+    this.load.tilemapTiledJSON('map2', 'Mapita2.json');
 
     this.load.setPath('assets');
-    this.load.image('background', 'FondoMapa2.png');
+    this.load.image('background2', 'FondoMapa2.png');
 
     this.load.setPath('assets/tilesets');
-    this.load.image('tiles', 'tileset2.png');
+    this.load.image('tiles2', 'tileset2.png');
 
     this.load.setPath('assets/Imagenes/Personaje');
     this.load.spritesheet('run', 'RUN.png', { frameWidth: 96, frameHeight: 84 });
@@ -31,7 +31,7 @@ export class Level2 extends Scene {
   }
 
   create() {
-    this.add.image(400, 300, 'background').setScrollFactor(0);
+    this.add.image(400, 300, 'background2').setScrollFactor(0);
     this.inicializarMapa();
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
@@ -143,9 +143,9 @@ export class Level2 extends Scene {
   }
 
   inicializarMapa() {
-    this.map = this.make.tilemap({ key: 'map' });
-    const tileset = this.map.addTilesetImage('TILED1', 'tiles');
-    this.suelo = this.map.createLayer('tierra1', tileset, 0, 0);
+    this.map = this.make.tilemap({ key: 'map2' });
+    const tileset = this.map.addTilesetImage('tileset2', 'tiles');
+    this.suelo = this.map.createLayer('tierra2', tileset, 0, 0);
     this.suelo.setCollisionByExclusion([-1]);
   }
 
