@@ -36,12 +36,20 @@ export class Level1 extends Scene {
     this.player.body.setGravityY(400);
     this.player.setSize(40, 70).setOffset(28, 10);
 
+    this.estaAtacando = false;
+
     this.anims.create({ key: 'left', frames: this.anims.generateFrameNumbers('run', { start: 0, end: 4 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'right', frames: this.anims.generateFrameNumbers('run', { start: 0, end: 4 }), frameRate: 10, repeat: -1 });
     this.anims.create({ key: 'jump', frames: this.anims.generateFrameNumbers('jump'), frameRate: 10 });
-    this.anims.create({ key: 'attack1', frames: this.anims.generateFrameNumbers('attack1'), frameRate: 10 });
-    this.anims.create({ key: 'attack2', frames: this.anims.generateFrameNumbers('attack2'), frameRate: 10 });
-    this.anims.create({ key: 'attack3', frames: this.anims.generateFrameNumbers('attack3'), frameRate: 10 });
+    this.anims.create({ key: 'attack1', frames: this.anims.generateFrameNumbers('attack1', { start: 0, end: 5}), frameRate: 10, repeat: 0 });
+    this.anims.create({ key: 'attack2', frames: this.anims.generateFrameNumbers('attack2', { start: 0, end: 4}), frameRate: 10, repeat: 0 });
+    this.anims.create({ key: 'attack3', frames: this.anims.generateFrameNumbers('attack3', { start: 0, end: 5}), frameRate: 10, repeat: 0 });
+
+    this.player.on('animationcomplete', (anim) => {
+      if (anim.key.startsWith('attack')) {
+        this.estaAtacando = false;
+      }
+    });
 
     this.physics.add.collider(this.player, this.suelo);
 
@@ -67,6 +75,24 @@ export class Level1 extends Scene {
   }
 
   update() {
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+      this.estaAtacando = true;
+      this.player.setVelocityX(0); // detener movimiento
+      this.player.anims.play('attack1', true);
+    }
+    if (Phaser.Input.Keyboard.JustDown(this.keyP)) {
+      this.estaAtacando = true;
+      this.player.setVelocityX(0);
+      this.player.anims.play('attack2', true);
+    }
+    if (Phaser.Input.Keyboard.JustDown(this.keyO)) {
+      this.estaAtacando = true;
+      this.player.setVelocityX(0);
+      this.player.anims.play('attack3', true);
+    }
+
+    if (this.estaAtacando) return;
+
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
       this.player.flipX = true;
@@ -83,16 +109,6 @@ export class Level1 extends Scene {
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-350);
       this.player.anims.play('jump', true);
-    }
-
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-      this.player.anims.play('attack1', true);
-    }
-    if (Phaser.Input.Keyboard.JustDown(this.keyP)) {
-      this.player.anims.play('attack2', true);
-    }
-    if (Phaser.Input.Keyboard.JustDown(this.keyO)) {
-      this.player.anims.play('attack3', true);
     }
   }
 }
