@@ -29,7 +29,6 @@ export class Level1 extends Scene {
   }
 
   create() {
-    
     this.add.image(400, 300, 'background').setScrollFactor(0);
     this.inicializarMapa();
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -37,47 +36,34 @@ export class Level1 extends Scene {
     this.player = this.crearJugador(100, 670);
     this.physics.add.collider(this.player, this.suelo);
 
-   
     if (globals.jugadores === 2) {
       this.player2 = this.crearJugador(150, 670);
       this.physics.add.collider(this.player2, this.suelo);
     }
 
-    
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player);
 
-    
     this.vida = 5;
     this.barraVida = this.add.image(60, 40, '5vidas').setScrollFactor(0);
 
-    
+    this.pausaActiva = false;
     const pausa = this.add.text(740, 20, '⏸', {
-      fontSize: '32px', backgroundColor: '#333', color: '#fff',
-      padding: { x: 10, y: 5 }
-    }).setScrollFactor(0).setInteractive()
-      .on('pointerdown', () => {
-        this.scene.pause();
+      fontSize: '32px', backgroundColor: '#333', color: '#fff', padding: { x: 10, y: 5 }
+    }).setScrollFactor(0).setInteractive().on('pointerdown', () => {
+      if (this.pausaActiva) {
+        this.pausaOverlay.forEach(el => el.destroy());
+        this.pausaActiva = false;
+      } else {
         this.mostrarMenuPausa();
-      });
+        this.pausaActiva = true;
+      }
+    });
 
-    
     this.enemigos = this.physics.add.group();
-    this.anims.create({
-        key: 'enemigo_izquierda',
-        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-      });
-      
-      this.anims.create({
-        key: 'enemigo_derecha',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-        frameRate: 10,
-        repeat: -1
-      });
-      
-      
+    this.anims.create({ key: 'enemigo_izquierda', frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }), frameRate: 10, repeat: -1 });
+    this.anims.create({ key: 'enemigo_derecha', frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }), frameRate: 10, repeat: -1 });
+
     for (let i = 0; i < 3; i++) {
       const x = Phaser.Math.Between(100, this.map.widthInPixels - 100);
       const enemigo = this.enemigos.create(x, 0, 'dude');
@@ -85,14 +71,29 @@ export class Level1 extends Scene {
       enemigo.direccion = 1;
       enemigo.vidas = 2;
       enemigo.anims.play('enemigo_derecha');
-
-
     }
+
     this.physics.add.collider(this.enemigos, this.suelo);
     this.physics.add.collider(this.enemigos, this.player, this.colisionConJugador, null, this);
     if (globals.jugadores === 2) {
       this.physics.add.collider(this.enemigos, this.player2, this.colisionConJugador, null, this);
     }
+  }
+
+  mostrarMenuPausa() {
+    this.pausaOverlay = [];
+    const fondo = this.add.rectangle(400, 300, 300, 200, 0x000000, 0.8).setScrollFactor(0);
+    const menu = this.add.text(400, 270, 'Menú', {
+      fontSize: 24, color: '#fff', backgroundColor: '#880000', padding: { x: 20, y: 10 }
+    }).setOrigin(0.5).setScrollFactor(0).setInteractive().on('pointerdown', () => {
+      this.scene.start('MenuScene');
+    });
+    const retry = this.add.text(400, 330, 'Reintentar', {
+      fontSize: 24, color: '#fff', backgroundColor: '#222222', padding: { x: 20, y: 10 }
+    }).setOrigin(0.5).setScrollFactor(0).setInteractive().on('pointerdown', () => {
+      this.scene.restart();
+    });
+    this.pausaOverlay.push(fondo, menu, retry);
   }
 
   crearJugador(x, y) {
@@ -116,22 +117,6 @@ export class Level1 extends Scene {
     return jugador;
   }
 
-  mostrarMenuPausa() {
-    const fondo = this.add.rectangle(400, 300, 300, 200, 0x000000, 0.8).setScrollFactor(0);
-    const menu = this.add.text(400, 270, 'Menú', {
-      fontSize: 24, color: '#fff', backgroundColor: '#880000', padding: { x: 20, y: 10 }
-    }).setOrigin(0.5).setScrollFactor(0).setInteractive().on('pointerdown', () => {
-      this.scene.stop();
-      this.scene.start('MenuScene');
-    });
-
-    const retry = this.add.text(400, 330, 'Reintentar', {
-      fontSize: 24, color: '#fff', backgroundColor: '#222222', padding: { x: 20, y: 10 }
-    }).setOrigin(0.5).setScrollFactor(0).setInteractive().on('pointerdown', () => {
-      this.scene.restart();
-    });
-  }
-
   colisionConJugador(jugador, enemigo) {
     if (!jugador.invulnerable) {
       this.quitarVida(1);
@@ -151,7 +136,6 @@ export class Level1 extends Scene {
   }
 
   inicializarMapa() {
-   
     this.map = this.make.tilemap({ key: 'map' });
     const tileset = this.map.addTilesetImage('TILED1', 'tiles');
     this.suelo = this.map.createLayer('tierra1', tileset, 0, 0);
@@ -159,22 +143,15 @@ export class Level1 extends Scene {
   }
 
   update() {
-    // 🔸 AÑADIDO: control enemigos
     this.enemigos.children.iterate((enemigo) => {
-        if (enemigo.body.blocked.left || enemigo.body.blocked.right) {
-            enemigo.direccion *= -1;
-            enemigo.setVelocityX(100 * enemigo.direccion);
-          
-            if (enemigo.direccion < 0) {
-              enemigo.anims.play('enemigo_izquierda', true);
-            } else {
-              enemigo.anims.play('enemigo_derecha', true);
-            }
-          }
-          
+      if (enemigo.body.blocked.left || enemigo.body.blocked.right) {
+        enemigo.direccion *= -1;
+        enemigo.setVelocityX(100 * enemigo.direccion);
+        if (enemigo.direccion < 0) enemigo.anims.play('enemigo_izquierda', true);
+        else enemigo.anims.play('enemigo_derecha', true);
+      }
     });
 
-   
     const atacar = (tecla, anim) => {
       if (Phaser.Input.Keyboard.JustDown(tecla)) {
         this.player.estaAtacando = true;
