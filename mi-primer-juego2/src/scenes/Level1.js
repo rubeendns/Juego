@@ -30,6 +30,8 @@ export class Level1 extends Scene {
     this.add.image(400, 300, 'background').setScrollFactor(0);
     this.inicializarMapa();
 
+    this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+
     this.player = this.physics.add.sprite(100, 300, 'run');
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
@@ -51,7 +53,7 @@ export class Level1 extends Scene {
       }
     });
 
-    this.physics.add.collider(this.player, this.suelo);
+    
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keyP = this.input.keyboard.addKey('P');
@@ -61,27 +63,33 @@ export class Level1 extends Scene {
     let enemigo1 = this.enemigos.create(450, 140, 'enemy'); // enemigo de arriba movido a la izquierda
     let enemigo2 = this.enemigos.create(900, 300, 'enemy'); // enemigo en plataforma derecha
     let enemigo3 = this.enemigos.create(200, 460, 'enemy'); // nuevo enemigo abajo a la izquierda
+
+    this.physics.add.collider(this.player, this.suelo);
     this.physics.add.collider(this.enemigos, this.suelo);
     this.physics.add.collider(this.player, this.enemigos);
 
+    
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player);
   }
 
   inicializarMapa() {
     this.map = this.make.tilemap({ key: 'map' });
-    const tileset = this.map.addTilesetImage('TILED1', 'tiles');
+    const tileset = this.map.addTilesetImage('TILED1', 'tiles'); // Nombre exacto como aparece en Tiled
     this.suelo = this.map.createLayer('tierra1', tileset, 0, 0);
-    this.suelo.setCollisionBetween(1, 100);
+  
+    // Esta línea activa las colisiones según lo que dibujaste en Tiled
+    this.suelo.setCollisionByExclusion([-1]);
 
+  
     const debugGraphics = this.add.graphics().setAlpha(0.7);
     this.suelo.renderDebug(debugGraphics, {
-    tileColor: null,         // sin color para tiles sin colisión
-    collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), // rojo para colisionables
-    faceColor: new Phaser.Display.Color(0, 255, 0, 255)           // verde para bordes
+      tileColor: null,
+      collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255),
+      faceColor: new Phaser.Display.Color(0, 255, 0, 255)
     });
   }
-
+  
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       this.estaAtacando = true;
