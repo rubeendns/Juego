@@ -1,5 +1,5 @@
-// MenuScene.js
-import { nivelDesbloqueado } from '../utils/global.js';
+
+import { globals } from '../utils/global.js';
 
 export class MenuScene extends Phaser.Scene {
   constructor() {
@@ -14,8 +14,8 @@ export class MenuScene extends Phaser.Scene {
 
     this.niveles = [
       { nombre: 'Level1', desbloqueado: true },
-      { nombre: 'Level2', desbloqueado: nivelDesbloqueado >= 2 },
-      { nombre: 'Level3', desbloqueado: nivelDesbloqueado >= 3 },
+      { nombre: 'Level2', desbloqueado: globals.nivelDesbloqueado >= 2 },
+      { nombre: 'Level3', desbloqueado: globals.nivelDesbloqueado >= 3 },
     ];
 
     this.niveles.forEach((nivel, index) => {
