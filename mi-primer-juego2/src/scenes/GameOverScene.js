@@ -3,7 +3,7 @@ export class GameOverScene extends Phaser.Scene {
       super('GameOverScene');
     }
     preload() {
-        this.load.image('gameover', 'assets/GameOver.png'); // Asegúrate de tener esta imagen
+        this.load.image('gameover', 'assets/GameOver.png'); 
       }
     
     create() {
@@ -18,7 +18,7 @@ export class GameOverScene extends Phaser.Scene {
         })
         .setInteractive({ useHandCursor: true })
         .on('pointerdown', () => {
-          this.scene.start(this.registry.get('lastLevel') || 'Level1'); // Último nivel jugado o Level1
+          this.scene.start(this.registry.get('lastLevel') || 'Level1'); 
         });
         const menuButton = this.add.text(450, 500, 'Menú', {
             fontSize: 28,

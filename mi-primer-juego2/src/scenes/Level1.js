@@ -65,13 +65,6 @@ export class Level1 extends Scene {
     const tileset = this.map.addTilesetImage('TILED1', 'tiles');
     this.suelo = this.map.createLayer('tierra1', tileset, 0, 0);
     this.suelo.setCollisionByExclusion([-1]);
-
-    const debugGraphics = this.add.graphics().setAlpha(0.7);
-    this.suelo.renderDebug(debugGraphics, {
-      tileColor: null,
-      collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255),
-      faceColor: new Phaser.Display.Color(0, 255, 0, 255)
-    });
   }
 
   update() {
