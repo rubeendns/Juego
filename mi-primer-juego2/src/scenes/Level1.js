@@ -69,7 +69,7 @@ export class Level1 extends Scene {
     for (let i = 0; i < 3; i++) {
       const x = Phaser.Math.Between(100, this.map.widthInPixels - 100);
       const enemigo = this.enemigos.create(x, 0, 'dude');
-      enemigo.setBounce(0).setCollideWorldBounds(true).setVelocityX(100);
+      enemigo.setBounce(0).setCollideWorldBounds(true).setVelocityX(150);
       enemigo.direccion = 1;
       enemigo.vidas = 2;
       enemigo.anims.play('enemigo_derecha');
@@ -126,7 +126,7 @@ export class Level1 extends Scene {
       this.time.delayedCall(1000, () => jugador.invulnerable = false);
 
       enemigo.direccion *= -1;
-      enemigo.setVelocityX(100 * enemigo.direccion);
+      enemigo.setVelocityX(150 * enemigo.direccion);
       if (enemigo.direccion < 0) enemigo.anims.play('enemigo_izquierda', true);
       else enemigo.anims.play('enemigo_derecha', true);
     }

@@ -9,11 +9,11 @@
     "file.lastUsedOpenFilter": "Todos los archivos (*)",
     "fileStates": {
         "Mapita1.tmx": {
-            "scale": 0.4965234375,
+            "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 630.3831327196916,
-                "y": 739.1393281409803
+                "x": 653,
+                "y": 404
             }
         },
         "Mapita1.tmx#TILED1": {
